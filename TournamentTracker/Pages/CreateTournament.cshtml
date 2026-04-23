@@ -1,0 +1,21 @@
+﻿@page
+@model TournamentTracker.Pages.CreateTournamentModel
+
+<h2>Create Tournament</h2>
+
+<form method="post">
+    <label for="tournamentName">Tournament Name</label>
+    <input type="text" id="tournamentName" name="Tournament.TournamentName" />
+
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" name="Tournament.StartDate" />
+
+    <label for="status">Status</label>
+    <select name="Tournament.Status">
+        <option value="Upcoming">Upcoming</option>
+        <option value="Ongoing">Ongoing</option>
+        <option value="Finished">Finished</option>
+    </select>
+
+    <button type="submit">Create Tournament</button>
+</form>

@@ -1,0 +1,28 @@
+﻿@page
+@model TournamentTracker.Pages.TournamentModel
+
+<h2>Tournaments</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tournament in Model.Tournaments)
+        {
+            <tr>
+                <td>@tournament.TournamentId</td>
+                <td>@tournament.TournamentName</td>
+                <td>@tournament.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@tournament.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Tournament/Create">Create Tournament</a>

@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model TournamentTracker.Pages.EditTournamentModel
+
+<h2>Edit Tournament</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Tournament.TournamentId" />
+
+    <label>Name</label>
+    <input asp-for="Tournament.TournamentName" />
+
+    <label>Start Date</label>
+    <input asp-for="Tournament.StartDate" type="date" />
+
+    <label>Status</label>
+    <select asp-for="Tournament.Status">
+        <option>Upcoming</option>
+        <option>Ongoing</option>
+        <option>Finished</option>
+    </select>
+
+    <button type="submit">Update</button>
+
+</form>
