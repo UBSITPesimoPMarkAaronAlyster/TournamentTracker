@@ -1,21 +1,101 @@
 ﻿@page
 @model TournamentTracker.Pages.CreateTournamentModel
+@{
+    ViewData["Title"] = "Create Tournament";
+}
 
-<h2>Create Tournament</h2>
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        <h2 class="mb-0">Create Tournament</h2>
+    </div>
 
-<form method="post">
-    <label for="tournamentName">Tournament Name</label>
-    <input type="text" id="tournamentName" name="Tournament.TournamentName" />
+    <div class="card-body">
 
-    <label for="startDate">Start Date</label>
-    <input type="date" id="startDate" name="Tournament.StartDate" />
+        <form method="post">
 
-    <label for="status">Status</label>
-    <select name="Tournament.Status">
-        <option value="Upcoming">Upcoming</option>
-        <option value="Ongoing">Ongoing</option>
-        <option value="Finished">Finished</option>
-    </select>
+            <div class="mb-3">
+                <label class="form-label">
+                    Tournament Name
+                </label>
 
-    <button type="submit">Create Tournament</button>
-</form>
+                <input asp-for="Tournament.TournamentName"
+                       class="form-control"
+                       required />
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Start Date
+                </label>
+
+                <input asp-for="Tournament.StartDate"
+                       type="date"
+                       class="form-control"
+                       required />
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select asp-for="Tournament.Status"
+                        class="form-select">
+
+                    <option value="Upcoming">
+                        Upcoming
+                    </option>
+
+                    <option value="Ongoing">
+                        Ongoing
+                    </option>
+
+                    <option value="Finished">
+                        Finished
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div class="mb-4">
+                <label class="form-label">
+                    Bracket Size
+                </label>
+
+                <select asp-for="Tournament.BracketSize"
+                        class="form-select"
+                        required>
+
+                    <option value="4">
+                        4 Teams
+                    </option>
+
+                    <option value="8">
+                        8 Teams
+                    </option>
+
+                    <option value="16">
+                        16 Teams
+                    </option>
+
+                </select>
+            </div>
+
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Create Tournament
+            </button>
+
+            <a href="/Tournament"
+               class="btn btn-secondary">
+                Back
+            </a>
+
+        </form>
+
+    </div>
+</div>

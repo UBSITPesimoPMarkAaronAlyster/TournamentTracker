@@ -1,0 +1,73 @@
+﻿@page "{id:int}"
+@model TournamentTracker.Pages.EditMatchModel
+@{
+    ViewData["Title"] = "Edit Match";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        <h2 class="mb-0">Edit Match</h2>
+    </div>
+
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" asp-for="Match.MatchId" />
+
+            <div class="mb-3">
+                <label class="form-label">Tournament</label>
+                <select asp-for="Match.TournamentId" class="form-select" required>
+                    @foreach (var tournament in Model.TournamentList)
+                    {
+                        <option value="@tournament.TournamentId">
+                            @tournament.TournamentName
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Team 1</label>
+                <select asp-for="Match.Team1Id" class="form-select" required>
+                    @foreach (var team in Model.TeamList)
+                    {
+                        <option value="@team.TeamId">
+                            @team.TeamName
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Team 2</label>
+                <select asp-for="Match.Team2Id" class="form-select" required>
+                    @foreach (var team in Model.TeamList)
+                    {
+                        <option value="@team.TeamId">
+                            @team.TeamName
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Score Team 1</label>
+                    <input asp-for="Match.ScoreTeam1" type="number" class="form-control" required />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Score Team 2</label>
+                    <input asp-for="Match.ScoreTeam2" type="number" class="form-control" required />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning">
+                Update Match
+            </button>
+
+            <a href="/Matches" class="btn btn-secondary">
+                Back
+            </a>
+        </form>
+    </div>
+</div>

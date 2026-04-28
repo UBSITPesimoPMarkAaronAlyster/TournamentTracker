@@ -1,0 +1,57 @@
+﻿@page
+@model TournamentTracker.Pages.MatchesModel
+@{
+    ViewData["Title"] = "Matches";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">Matches</h2>
+        <a href="/CreateMatch" class="btn btn-primary">
+            Create New Match
+        </a>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Match ID</th>
+                    <th>Tournament</th>
+                    <th>Team 1</th>
+                    <th>Score</th>
+                    <th>Team 2</th>
+                    <th>Winner</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var match in Model.MatchList)
+                {
+                    <tr>
+                        <td>@match.MatchId</td>
+                        <td>@match.TournamentName</td>
+                        <td>@match.Team1Name</td>
+                        <td>
+                            <span class="badge bg-dark">
+                                @match.ScoreTeam1 - @match.ScoreTeam2
+                            </span>
+                        </td>
+                        <td>@match.Team2Name</td>
+                        <td>@match.WinnerName</td>
+                        <td>
+                            <a href="/EditMatch/@match.MatchId" class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+
+                            <a href="/DeleteMatch/@match.MatchId" class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

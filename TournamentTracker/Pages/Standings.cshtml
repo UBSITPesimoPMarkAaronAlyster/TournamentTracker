@@ -1,0 +1,35 @@
+﻿@page
+@model TournamentTracker.Pages.StandingsModel
+
+<h2>Leaderboard</h2>
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Wins</th>
+            <th>Losses</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int rank = 1;
+        }
+
+        @foreach (var team in Model.StandingsList)
+        {
+            <tr>
+                <td>@rank</td>
+                <td>@team.TeamName</td>
+                <td>@team.Wins</td>
+                <td>@team.Losses</td>
+            </tr>
+
+            rank++;
+        }
+
+    </tbody>
+
+</table>

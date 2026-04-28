@@ -1,0 +1,258 @@
+﻿@page
+@model TournamentTracker.Pages.BracketModel
+@{
+    ViewData["Title"] = "Bracket";
+}
+
+<div class="bracket-page">
+
+    <div class="bracket-title">
+        ESPORTS TOURNAMENT BRACKET
+    </div>
+
+    <form method="get" class="bracket-controls">
+        <label class="form-label">Select Tournament</label>
+
+        <select name="tournamentId"
+                class="form-select bracket-select"
+                onchange="this.form.submit()">
+
+            @foreach (var tournament in Model.TournamentList)
+            {
+                if (tournament.TournamentId == Model.SelectedTournamentId)
+                {
+                    <option value="@tournament.TournamentId" selected>
+                        @tournament.TournamentName - @tournament.BracketSize Teams
+                    </option>
+                }
+                else
+                {
+                    <option value="@tournament.TournamentId">
+                        @tournament.TournamentName - @tournament.BracketSize Teams
+                    </option>
+                }
+            }
+
+        </select>
+    </form>
+
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-light">
+            @Model.SelectedTournamentName
+        </h2>
+
+        <p class="text-info">
+            @Model.BracketSize Team Bracket
+        </p>
+    </div>
+
+    @if (Model.BracketSize == 4)
+    {
+        <div class="dynamic-bracket bracket-4">
+
+            <div class="bracket-column">
+                <h4>Round 1</h4>
+
+                <div class="team @(Model.TeamSlots[0] == "BYE" ? "bye" : "")">
+                    @Model.TeamSlots[0]
+                </div>
+
+                <div class="team @(Model.TeamSlots[1] == "BYE" ? "bye" : "")">
+                    @Model.TeamSlots[1]
+                </div>
+
+                <div class="team gap-lg @(Model.TeamSlots[2] == "BYE" ? "bye" : "")">
+                    @Model.TeamSlots[2]
+                </div>
+
+                <div class="team @(Model.TeamSlots[3] == "BYE" ? "bye" : "")">
+                    @Model.TeamSlots[3]
+                </div>
+            </div>
+
+            <div class="bracket-column">
+                <h4>Finals</h4>
+
+                <div class="team finalist-small">
+                    Winner Match 1
+                </div>
+
+                <div class="team finalist-small">
+                    Winner Match 2
+                </div>
+            </div>
+
+            <div class="bracket-column champion-column">
+                <h4>Champion</h4>
+
+                <div class="trophy">🏆</div>
+
+                <div class="team champion-team">
+                    Champion
+                </div>
+            </div>
+
+        </div>
+    }
+    else if (Model.BracketSize == 8)
+    {
+        <div class="dynamic-bracket bracket-8">
+
+            <div class="bracket-column">
+                <h4>Round 1</h4>
+
+                @for (int i = 0; i < 8; i++)
+                {
+                    string extraClass = "";
+
+                    if (i == 2 || i == 4 || i == 6)
+                    {
+                        extraClass = "gap-md";
+                    }
+
+                    if (Model.TeamSlots[i] == "BYE")
+                    {
+                        extraClass += " bye";
+                    }
+
+                    <div class="team @extraClass">
+                        @Model.TeamSlots[i]
+                    </div>
+                }
+            </div>
+
+            <div class="bracket-column">
+                <h4>Semi Finals</h4>
+
+                <div class="team semi-slot">Winner 1</div>
+                <div class="team semi-slot">Winner 2</div>
+                <div class="team semi-slot-large">Winner 3</div>
+                <div class="team">Winner 4</div>
+            </div>
+
+            <div class="bracket-column">
+                <h4>Finals</h4>
+
+                <div class="team finalist-slot">Finalist 1</div>
+                <div class="team finalist-slot">Finalist 2</div>
+            </div>
+
+            <div class="bracket-column champion-column">
+                <h4>Champion</h4>
+
+                <div class="trophy">🏆</div>
+
+                <div class="team champion-team">
+                    Champion
+                </div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="bracket">
+
+            <div class="bracket-side left-side">
+
+                <div class="round round-1">
+                    @for (int i = 0; i < 8; i++)
+                    {
+                        string extraClass = "";
+
+                        if (i == 2 || i == 6)
+                        {
+                            extraClass = "gap-lg";
+                        }
+
+                        if (i == 4)
+                        {
+                            extraClass = "gap-xl";
+                        }
+
+                        if (Model.TeamSlots[i] == "BYE")
+                        {
+                            extraClass += " bye";
+                        }
+
+                        <div class="team @extraClass">
+                            @Model.TeamSlots[i]
+                        </div>
+                    }
+                </div>
+
+                <div class="round round-2">
+                    <div class="team r2-top">Winner 1</div>
+                    <div class="team">Winner 2</div>
+
+                    <div class="team r2-bottom">Winner 3</div>
+                    <div class="team">Winner 4</div>
+                </div>
+
+                <div class="round round-3">
+                    <div class="team finalist-top">Finalist 1</div>
+                    <div class="team">Finalist 2</div>
+                </div>
+
+            </div>
+
+            <div class="center-champion">
+                <div class="trophy">🏆</div>
+
+                <div class="final-box">
+                    <div class="team">Finalist A</div>
+                    <div class="team">Finalist B</div>
+                </div>
+
+                <div class="team champion-team mt-3">
+                    Champion
+                </div>
+            </div>
+
+            <div class="bracket-side right-side">
+
+                <div class="round round-3">
+                    <div class="team finalist-top">Finalist 3</div>
+                    <div class="team">Finalist 4</div>
+                </div>
+
+                <div class="round round-2">
+                    <div class="team r2-top">Winner 5</div>
+                    <div class="team">Winner 6</div>
+
+                    <div class="team r2-bottom">Winner 7</div>
+                    <div class="team">Winner 8</div>
+                </div>
+
+                <div class="round round-1">
+                    @for (int i = 8; i < 16; i++)
+                    {
+                        string extraClass = "";
+
+                        if (i == 10 || i == 14)
+                        {
+                            extraClass = "gap-lg";
+                        }
+
+                        if (i == 12)
+                        {
+                            extraClass = "gap-xl";
+                        }
+
+                        if (Model.TeamSlots[i] == "BYE")
+                        {
+                            extraClass += " bye";
+                        }
+
+                        <div class="team @extraClass">
+                            @Model.TeamSlots[i]
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>

@@ -1,10 +1,50 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Tournament Tracker</h1>
+    <p class="lead text-muted">
+        Manage tournaments, teams, matches, and results in one simple system.
+    </p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center h-100">
+            <div class="card-body p-4">
+                <h3 class="fw-bold">Tournaments</h3>
+                <p class="text-muted">Create and manage tournament events.</p>
+                <a href="/Tournament" class="btn btn-primary">
+                    View Tournaments
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center h-100">
+            <div class="card-body p-4">
+                <h3 class="fw-bold">Teams</h3>
+                <p class="text-muted">Add teams and assign them to tournaments.</p>
+                <a href="/Teams" class="btn btn-success">
+                    View Teams
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center h-100">
+            <div class="card-body p-4">
+                <h3 class="fw-bold">Matches</h3>
+                <p class="text-muted">Schedule matches and update scores.</p>
+                <a href="/Matches" class="btn btn-danger">
+                    View Matches
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,47 @@
+﻿@page
+@model TournamentTracker.Pages.TeamsModel
+@{
+    ViewData["Title"] = "Teams";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">Teams</h2>
+        <a href="/CreateTeam" class="btn btn-primary">
+            Add New Team
+        </a>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Tournament</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var team in Model.TeamList)
+                {
+                    <tr>
+                        <td>@team.TeamId</td>
+                        <td>@team.TeamName</td>
+                        <td>@team.TournamentName</td>
+                        <td>
+                            <a href="/EditTeam/@team.TeamId" class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+
+                            <a href="/DeleteTeam/@team.TeamId" class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
