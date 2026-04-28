@@ -16,6 +16,8 @@ namespace TournamentTracker.Pages
 
         public int BracketSize { get; set; } = 4;
 
+        public bool HasTournaments { get; set; } = false;
+
         public void OnGet(int? tournamentId)
         {
             string connStr = "server=localhost;port=1108;database=TournamentTracker_db;user=root;password=;";
@@ -28,8 +30,11 @@ namespace TournamentTracker.Pages
 
                 if (TournamentList.Count == 0)
                 {
+                    HasTournaments = false;
                     return;
                 }
+
+                HasTournaments = true;
 
                 SelectedTournamentId = tournamentId ?? TournamentList[0].TournamentId;
 
@@ -41,7 +46,10 @@ namespace TournamentTracker.Pages
 
         private void LoadTournaments(MySqlConnection conn)
         {
-            string sql = "SELECT tournament_id, tournament_name, bracket_size FROM tournaments";
+            string sql = @"
+                SELECT tournament_id, tournament_name, bracket_size
+                FROM tournaments
+                ORDER BY tournament_id DESC";
 
             using (MySqlCommand cmd = new MySqlCommand(sql, conn))
             {
@@ -52,8 +60,14 @@ namespace TournamentTracker.Pages
                         TournamentList.Add(new BracketTournamentOption
                         {
                             TournamentId = reader.GetInt32("tournament_id"),
-                            TournamentName = reader.GetString("tournament_name"),
-                            BracketSize = reader.GetInt32("bracket_size")
+
+                            TournamentName = reader.IsDBNull(reader.GetOrdinal("tournament_name"))
+                                ? "Unnamed Tournament"
+                                : reader.GetString("tournament_name"),
+
+                            BracketSize = reader.IsDBNull(reader.GetOrdinal("bracket_size"))
+                                ? 4
+                                : reader.GetInt32("bracket_size")
                         });
                     }
                 }
@@ -62,7 +76,10 @@ namespace TournamentTracker.Pages
 
         private void LoadSelectedTournament(MySqlConnection conn)
         {
-            string sql = "SELECT tournament_name, bracket_size FROM tournaments WHERE tournament_id = @id";
+            string sql = @"
+                SELECT tournament_name, bracket_size
+                FROM tournaments
+                WHERE tournament_id = @id";
 
             using (MySqlCommand cmd = new MySqlCommand(sql, conn))
             {
@@ -72,8 +89,13 @@ namespace TournamentTracker.Pages
                 {
                     if (reader.Read())
                     {
-                        SelectedTournamentName = reader.GetString("tournament_name");
-                        BracketSize = reader.GetInt32("bracket_size");
+                        SelectedTournamentName = reader.IsDBNull(reader.GetOrdinal("tournament_name"))
+                            ? "Unnamed Tournament"
+                            : reader.GetString("tournament_name");
+
+                        BracketSize = reader.IsDBNull(reader.GetOrdinal("bracket_size"))
+                            ? 4
+                            : reader.GetInt32("bracket_size");
                     }
                 }
             }
@@ -81,7 +103,11 @@ namespace TournamentTracker.Pages
 
         private void LoadTeams(MySqlConnection conn)
         {
-            string sql = "SELECT team_name FROM teams WHERE tournament_id = @id ORDER BY team_id ASC";
+            string sql = @"
+                SELECT team_name
+                FROM teams
+                WHERE tournament_id = @id
+                ORDER BY team_id ASC";
 
             using (MySqlCommand cmd = new MySqlCommand(sql, conn))
             {
@@ -91,7 +117,11 @@ namespace TournamentTracker.Pages
                 {
                     while (reader.Read())
                     {
-                        TeamSlots.Add(reader.GetString("team_name"));
+                        TeamSlots.Add(
+                            reader.IsDBNull(reader.GetOrdinal("team_name"))
+                                ? "Unnamed Team"
+                                : reader.GetString("team_name")
+                        );
                     }
                 }
             }
