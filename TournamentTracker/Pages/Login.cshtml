@@ -1,5 +1,68 @@
-﻿<form method="post">
-    <input name="username" placeholder="Username" />
-    <input name="password" type="password" placeholder="Password" />
-    <button type="submit">Login</button>
-</form>
+﻿@page
+@model TournamentTracker.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Login - Esports Bracket Arena</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body class="login-body">
+
+    <div class="login-wrapper">
+
+        <div class="login-card">
+
+            <h1>Esports Bracket Arena</h1>
+            <p>Login to manage tournaments, teams, matches, and brackets.</p>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input asp-for="Username"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <input asp-for="Password"
+                           type="password"
+                           class="form-control"
+                           required />
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100">
+                    Login
+                </button>
+
+            </form>
+
+            <div class="login-hint">
+                Sample: admin / 1234
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
