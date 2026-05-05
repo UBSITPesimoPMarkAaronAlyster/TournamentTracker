@@ -21,8 +21,7 @@
             <div class="mb-3">
                 <label class="form-label">Tournament</label>
                 <select asp-for="Team.TournamentId" class="form-select" required>
-                    @foreach (var tournament in Model.TournamentList)
-                    {
+                    @foreach (var tournament in Model.TournamentList){
                         <option value="@tournament.TournamentId">
                             @tournament.TournamentName
                         </option>

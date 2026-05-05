@@ -15,8 +15,7 @@
             <div class="mb-3">
                 <label class="form-label">Tournament</label>
                 <select asp-for="Match.TournamentId" class="form-select" required>
-                    @foreach (var tournament in Model.TournamentList)
-                    {
+                    @foreach (var tournament in Model.TournamentList){
                         <option value="@tournament.TournamentId">
                             @tournament.TournamentName
                         </option>
@@ -27,8 +26,7 @@
             <div class="mb-3">
                 <label class="form-label">Team 1</label>
                 <select asp-for="Match.Team1Id" class="form-select" required>
-                    @foreach (var team in Model.TeamList)
-                    {
+                    @foreach (var team in Model.TeamList) {
                         <option value="@team.TeamId">
                             @team.TeamName
                         </option>
@@ -39,8 +37,7 @@
             <div class="mb-3">
                 <label class="form-label">Team 2</label>
                 <select asp-for="Match.Team2Id" class="form-select" required>
-                    @foreach (var team in Model.TeamList)
-                    {
+                    @foreach (var team in Model.TeamList) {
                         <option value="@team.TeamId">
                             @team.TeamName
                         </option>

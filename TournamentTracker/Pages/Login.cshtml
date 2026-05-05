@@ -25,8 +25,7 @@
             <h1>Esports Bracket Arena</h1>
             <p>Login to manage tournaments, teams, matches, and brackets.</p>
 
-            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-            {
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage)){
                 <div class="alert alert-danger">
                     @Model.ErrorMessage
                 </div>
